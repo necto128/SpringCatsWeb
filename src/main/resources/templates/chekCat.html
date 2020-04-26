@@ -1,0 +1,80 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <script src="https://snipp.ru/cdn/jquery/2.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <meta http-equiv="Content-Type; content=text/html charset=utf-8">
+    <title>$Первая HTML страница$</title>
+    <link rel="stylesheet" href="style/checkCat.css"/>
+</head>
+<body style=height:100%;width:100%>
+<header th:insert="blocks/blockss :: header"></header>
+<button class=addcat>Просмотр кота</button>
+<div class=midl>
+    <div class="form">
+        <form id="form1" method="post" th:action="@{/edit/record/}" onsubmit="if(check()==false)return false">
+            <div th:each="el:${listcat}">
+                <div class="form_grup">
+                    <label class="form_label">Имя кота</label>
+                    <input id="nameCat" name="nameCat" class="form_input" th:value="${el.name_cat}"/>
+                </div>
+                <div class="form_grup">
+                    <label class="form_label">ID отца</label>
+                    <input id="idDad" name="idDad" type="number" class="form_input" th:value="${el.id_dad}"/>
+                </div>
+                <div class="form_grup">
+                    <label class="form_label">ID матери</label>
+                    <input id="idMam" name="idMam" type="number" class="form_input" th:value="${el.id_mam}"/>
+                </div>
+
+                <div class="form_grup" style="height: 10px">
+                    <label class="form_label">Author:[[${el.authorName}]]</label>
+                    <input type="hidden" class="form_input"/>
+                </div>
+
+                <button id="idCat" name="idCat" class="form_button" th:value="${el.id_cat}">
+                    Записать кота
+                </button>
+            </div>
+        </form>
+        <div>
+            <form method="post" th:action="@{/chekCat/remove}" onsubmit="if(check()==false)return false">
+                <button id="idCatdelete" name="delete" class="form_button" onclick="x1()" value=""
+                        style="margin-top:0px;width:157.59px">Удалить кота
+                    <input type="hidden" name="name_cat" id="name_cat" value=""/>
+                    <input type="hidden" name="id_dad" id="id_dad" value=""/>
+                    <input type="hidden" name="id_mam" id="id_mam" value=""/>
+                    <input type="hidden" name="gender" id="gender" value=""/>
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    $('select#iddadcats').on('change', function () {
+        $('input[name="idDad"]').val(this.value);
+    });
+    $('select#idmamcats').on('change', function () {
+        $('input[name="idMam"]').val(this.value);
+    });
+
+    function check() {
+
+        if (confirm('Вы уверены?') == false) {
+            return false;
+        } else {
+            return true
+        }
+    }
+
+    function x1() {
+        document.getElementById("idCatdelete").value = document.getElementById("idCat").value;
+        document.getElementById("name_cat").value = document.getElementById("nameCat").value;
+        document.getElementById("id_dad").value = document.getElementById("idDad").value;
+        document.getElementById("id_mam").value = document.getElementById("idMam").value;
+        document.getElementById("gender").value = document.getElementById("gender1").value;
+    }
+
+</script>
+</body>
+</html>

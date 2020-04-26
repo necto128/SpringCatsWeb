@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <script src="https://snipp.ru/cdn/jquery/2.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <meta http-equiv="Content-Type; content=text/html charset=utf-8">
+    <title>$Первая HTML страница$</title>
+    <link rel="stylesheet" href="style/listUsers.css"/>
+</head>
+<body style=height:100%;width:100%>
+<header th:insert="blocks/blockss :: header"></header>
+<button class=addcat>Последний раз видим</button>
+<div class=midl>
+    <div style="width:600px;">
+        <table border="1" cellpadding="5" width="550px">
+            <tr>
+                <span><th class="shapka"><span class="px30">ID</span></th></span>
+                <span><th class="shapka"><span class="px30">Имя</span></th></span>
+                <span><th class="shapka"><span class="px30">Роль</span></th></span>
+                <span><th class="shapka"><span class="px30">Edit</span></th></span>
+            </tr>
+            <div class="form_radio_btn" style="text-align: center;">
+                <tr th:each="el : ${list}">
+                    <td><span class="px30">[[${el.id_user}]]</span></td>
+                    <td><span class="px30">[[${el.username}]]</span></td>
+                    <td><span class="px30">[[${el.roles}]]</span></td>
+                    <td><span class="px30">
+                        <a th:href="'/user/'+${el.id_user}">Edit</a>
+                    </span></td>
+                </tr>
+            </div>
+            </br>
+        </table>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://snipp.ru/cdn/jquery/2.1.1/jquery.min.js"></script>
+    <meta http-equiv="Content-Type; content=text/html charset=utf-8">
+    <title>$Первая HTML страница$</title>
+    <link rel="stylesheet" href="style/addCats.css"/>
+</head>
+<body style=height:100%;width:100%>
+<header th:insert="blocks/blockss :: header"></header>
+<button class=addcat>Добавление нового кота</button>
+<div class=midl>
+    <div class="form">
+        <form id="form1" method="post" th:action="@{/addCats}">
+            <div class="form_grup">
+                <label class="form_label">Имя кота</label>
+                <input id="nameCat" name="nameCat" class="form_input" value=""/>
+            </div>
+            <div class="form_grup">
+                <label class="form_label">ID отца</label>
+                <input id="idDad" name="idDad" type="number" class="form_input" style=" width: 170px;" value=""/>
+                <select id="iddadcats">
+                    <option>пустой</option>
+                    <div th:each="el : ${listcat}">
+                        <span th:if="${el.gender=='М'}">
+                            <option th:value="${el.id_cat}">[[${el.id_cat}]]</option>
+                        </span>
+                    </div>
+                </select>
+            </div>
+            <div class="form_grup">
+                <label class="form_label">ID матери</label>
+                <input id="idMam" name="idMam" type="number" class="form_input" style=" width: 170px;" value=""/>
+                <select id="idmamcats">
+                    <option>пустой</option>
+                    <div th:each="el : ${listcat}">
+                         <span th:if="${el.gender=='Ж'}">
+                        <option th:value="${el.id_cat}">[[${el.id_cat}]]</option>
+                         </span>
+                    </div>
+                </select>
+            </div>
+            <div>
+                <label style="margin:0 40px">М<input name="radio1" type="radio" value="М" class="form_input"
+                                                     checked></label>
+                <label>Ж<input NAME="radio1" type="radio" value="Ж" class="form_input"></label>
+            </div>
+            <button id="gender" name="gender" class="form_button" onclick="x1()" value=""/>
+            Записать кота</button>
+        </form>
+        <a th:href="@{/mainPage}">
+            <button class="form_button" onsubmit="false" onclick="cancel()" style="margin-top:0px;width:157.59px">
+                Отмена
+            </button>
+        </a>
+    </div>
+</div>
+<script>
+    $('select#iddadcats').on('change', function () {
+        $('input[name="idDad"]').val(this.value);
+    });
+    $('select#idmamcats').on('change', function () {
+        $('input[name="idMam"]').val(this.value);
+    });
+
+    function x1() {
+        var nameCat = document.getElementById("nameCat").value;
+        var iddad = document.getElementById("idDad").value;
+        var idmam = document.getElementById("idMam").value;
+        if (nameCat.length > 0 && iddad.length > 0 && idmam.length > 0) {
+
+            $('input:radio:checked').each(function () {
+                document.getElementById("gender").value = $(this).val();
+            });
+            document.getElementById("form1").onsubmit = true
+        } else {
+            document.getElementById("form1").onsubmit = false
+        }
+    }
+</script>
+</body>
+</html>

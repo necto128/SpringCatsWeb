@@ -1,0 +1,92 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <script src="https://snipp.ru/cdn/jquery/2.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <title>$Первая HTML страница$</title>
+    <style type="text/css">
+        .addcat {
+            width: 280px;
+            height: 30px;
+            display: block;
+            position: relative;
+            border: 1px solid grey;
+            margin: 10px auto;
+            background: grey;
+        }
+
+        .midl {
+            width: 500px;
+            position: relative;
+            margin: 0 auto;
+        }
+
+        .shapka {
+            background: grey;
+            position: relative;
+            margin-right: 30px;
+
+        }
+
+        td, th {
+            text-align: center;
+        }
+
+        .form_radio_btn {
+            display: inline-block;
+            margin: 0px auto;
+        }
+
+        .form_radio_btn input[type=radio] {
+            display: none;
+        }
+
+        .form_radio_btn label {
+            display: inline-block;
+            cursor: pointer;
+            padding: 0px 15px;
+            line-height: 34px;
+            border: 1px solid #999;
+            border-radius: 6px;
+            user-select: none;
+        }
+
+        .px30 {
+            margin-right: 30px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body style=height:100%;width:100%>
+<header th:insert="blocks/blockss :: header"></header>
+<button class=addcat>Последний раз видим</button>
+<div class=midl>
+    <div style="width:600px;">
+        <table border="1" cellpadding="5" width="550px">
+            <tr>
+                <span><th class="shapka"><span class="px30">ID кота</span></th></span>
+                <span><th class="shapka"><span class="px30">Имя</span></th></span>
+                <span><th class="shapka"><span class="px30">ID отца</span></th></span>
+                <span><th class="shapka"><span class="px30">ID матери</span></th></span>
+                <span><th class="shapka"><span class="px30">Пол</span></th></span>
+            </tr>
+
+            <tr>
+                <td><span class="px30">[[${id_cat}]]</span></td>
+                <td><span class="px30">[[${name_cat}]]</span></td>
+                <td><span class="px30">[[${id_dad}]]</span></td>
+                <td><span class="px30">[[${id_mam}]]</span></td>
+                <td><span class="px30">[[${gender}]]</span></td>
+            </tr>
+    </div>
+    </br>
+    </table>
+</div>
+</div>
+<script>
+    setTimeout(function () {
+        window.location.href = '/mainPage';
+    }, 5 * 1000);
+</script>
+</body>
+</html>
