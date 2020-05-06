@@ -9,13 +9,13 @@
     <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous"/>
 </head>
 <body>
-<form th:action="@{/user}" method="post" class="form-signin">
+<form th:action="@{/users}" method="post" class="form-signin">
     <h2 class="form-signin-heading">Edit Profile</h2>
     <p>
         <label for="username" class="sr-only">Username</label>
-        <input type="text" id="username" name="username" class="form-control" th:value="${user.username}"
+        <input type="text" id="username" name="username" class="form-control" th:value="${users.username}"
                placeholder="Username" required autofocus>
-        <input type="hidden" name="realname" th:value="${user.id_user}">
+        <input type="hidden" name="realname" th:value="${users.id_user}">
     </p>
     <div>
         <label><input type="checkbox" value="USER" name="USER" th:checked="${USER=='USER'?true:false}">USERS</label>

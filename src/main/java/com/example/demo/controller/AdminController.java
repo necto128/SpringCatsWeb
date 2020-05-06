@@ -2,7 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.enums.Role;
 import com.example.demo.model.Users;
-import com.example.demo.repos.UserRepo;
+import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -19,11 +19,11 @@ import java.util.stream.Collectors;
 @PreAuthorize("hasAuthority('ADMIN')")
 public class AdminController {
     @Autowired
-    private UserRepo userRepo;
+    private UserService userService;
 
     @PostMapping
-    public String editprof1(@RequestParam("realname") Users users, @RequestParam("username") String name, @RequestParam Map<String, String> form) {
-        users.setUsername(name);
+    public String editprof1(@RequestParam("realname") Users users, @RequestParam("username") String username, @RequestParam Map<String, String> form) {
+        users.setUsername(username);
         Set<String> roles = Arrays.stream(Role.values()).map(Role::name).collect(Collectors.toSet());
         users.getRoles().clear();
         for (String key : form.keySet()) {
@@ -32,13 +32,13 @@ public class AdminController {
                 users.getRoles().add(Role.valueOf(key));
             }
         }
-        userRepo.save(users);
+        userService.saveUser(users);
         return "redirect:/mainPage";
     }
 
     @GetMapping
     public String beginAddCats(Model model) {
-        model.addAttribute("list", userRepo.findAll());
+        model.addAttribute("list", userService.listUser());
         return "listUsers";
     }
 
