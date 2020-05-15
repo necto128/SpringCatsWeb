@@ -21,11 +21,11 @@
             </tr>
             <div class="form_radio_btn" style="text-align: center;">
                 <tr th:each="el : ${list}">
-                    <td><span class="px30">[[${el.id_user}]]</span></td>
+                    <td><span class="px30">[[${el.id}]]</span></td>
                     <td><span class="px30">[[${el.username}]]</span></td>
                     <td><span class="px30">[[${el.roles}]]</span></td>
                     <td><span class="px30">
-                        <a th:href="'/users/'+${el.id_user}">Edit</a>
+                        <a th:href="'/users/'+${el.id}">Edit</a>
                     </span></td>
                 </tr>
             </div>

@@ -11,15 +11,67 @@
 </div>
 <div th:fragment="buttonMainDelete">
     <td colspan="2">
-        <form name="form1" onsubmit="if(check()==false)return false" method="post"
+        <form name="form1" onsubmit="if(check()==false)return false" method="post" th:object="${catsForm}"
               th:action="@{/chekCat/remove}">
-            <button id="delete" name="delete" onclick="shipment()" value="" class=cat>
+            <input type="hidden" id="delete" name="delete" th:field="*{cat_id}">
+            <button onclick="shipment()" class="cat">
                 Удалить
             </Button>
-            <input type="hidden" name="name_cat" id="name_cat" value=""/>
-            <input type="hidden" name="id_dad" id="id_dad" value=""/>
-            <input type="hidden" name="id_mam" id="id_mam" value=""/>
-            <input type="hidden" name="gender" id="gender" value=""/>
         </form>
     </td>
 </div>
+<style th:fragment="styleDelete">
+    .m {
+    }
+
+    .midl {
+        width: 500px;
+        position: relative;
+        margin: 0 auto;
+    }
+
+    .shapka {
+        background: grey;
+        position: relative;
+        margin-right: 30px;
+
+    }
+
+    td, th {
+        text-align: center;
+    }
+
+    .form_radio_btn {
+        display: inline-block;
+        margin: 0px auto;
+    }
+
+    .addcat {
+        width: 280px;
+        height: 30px;
+        display: block;
+        position: relative;
+        border: 1px solid grey;
+        margin: 10px auto;
+        background: grey;
+    }
+
+    .form_radio_btn input[type=radio] {
+        display: none;
+    }
+
+    .form_radio_btn label {
+        display: inline-block;
+        cursor: pointer;
+        padding: 0px 15px;
+        line-height: 34px;
+        border: 1px solid #999;
+        border-radius: 6px;
+        users-select: none;
+    }
+
+    .px30 {
+        margin-right: 30px;
+        text-align: center;
+    }
+</style>

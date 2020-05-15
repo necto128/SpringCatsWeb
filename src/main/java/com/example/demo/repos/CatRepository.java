@@ -1,7 +1,7 @@
 package com.example.demo.repos;
 
-import com.example.demo.model.Cats;
+import com.example.demo.model.Cat;
 import org.springframework.data.repository.CrudRepository;
 
-public interface CatRepository extends CrudRepository<Cats, Long> {
+public interface CatRepository extends CrudRepository<Cat, Long> {
 }

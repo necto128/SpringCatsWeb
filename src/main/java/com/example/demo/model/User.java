@@ -10,16 +10,16 @@ import java.util.Set;
 
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = {"username"}))
-public class Users implements UserDetails {
+public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public Long id_user;
+    public Long id;
 
     @Column(name = "username")
     public String username;
 
     @Column(name = "password")
-    public String Password;
+    public String password;
 
     @Column(name = "active")
     public boolean active;
@@ -29,12 +29,12 @@ public class Users implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
 
-    public Long getId_user() {
-        return id_user;
+    public Long getId() {
+        return id;
     }
 
-    public void setId_user(Long id_user) {
-        this.id_user = id_user;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getUsername() {
@@ -71,11 +71,11 @@ public class Users implements UserDetails {
     }
 
     public String getPassword() {
-        return Password;
+        return password;
     }
 
     public void setPassword(String password) {
-        Password = password;
+        this.password = password;
     }
 
     public boolean isActive() {
@@ -101,9 +101,9 @@ public class Users implements UserDetails {
     @Override
     public String toString() {
         return "Users{" +
-                "id_User=" + id_user +
+                "id_User=" + id +
                 ", name_User='" + username + '\'' +
-                ", Password='" + Password + '\'' +
+                ", Password='" + password + '\'' +
                 ", active=" + active +
                 ", roles=" + roles +
                 '}';

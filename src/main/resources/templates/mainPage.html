@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <script src="https://snipp.ru/cdn/jquery/2.1.1/jquery.min.js"></script>
     <link rel="stylesheet" href="style/mainPage.css">
+    <script src="/js/mainJs.js"></script>
 </head>
 <body style="height:100%;width:100%;line-height:1.4">
 <header th:insert="blocks/blockss :: header">
@@ -30,26 +31,27 @@
             <div th:each="el : ${listcat}">
                 <tr class="form_radio_btn">
                     <td colspan="2" style="width:300px">
-                        <input th:id="${el.id_cat}" type="radio" name="radio" th:value="${el.id_cat}" checked>
-                        <label th:for="${el.id_cat}"> <span
-                                style=margin-right:70px;margin-left:20px;>[[${el.id_cat}]]</span><span>[[${el.name_cat}]]</span></label>
+                        <input th:id="${el.cat_id}" type="radio" name="radio" th:value="${el.cat_id}" checked>
+                        <label th:for="${el.cat_id}"> <span
+                                style=margin-right:70px;margin-left:20px;>[[${el.cat_id}]]</span><span>[[${el.cat_name}]]</span></label>
 
-                        <input type="hidden" name="name_cat1" th:id="name_cat+${el.id_cat}" th:value="${el.name_cat}"/>
-                        <input type="hidden" name="id_dad1" th:id="id_dad+${el.id_cat}" th:value="${el.id_dad}"/>
-                        <input type="hidden" name="id_mam1" th:id="id_mam+${el.id_cat}" th:value="${el.id_mam}"/>
-                        <input type="hidden" name="gender1" th:id="gender+${el.id_cat}" th:value="${el.gender}"/>
+                        <input type="hidden" name="name_cat1" th:id="name_cat+${el.cat_id}" th:value="${el.cat_name}"/>
+                        <input type="hidden" name="id_dad1" th:id="id_dad+${el.cat_id}" th:value="${el.dad_id}"/>
+                        <input type="hidden" name="id_mam1" th:id="id_mam+${el.cat_id}" th:value="${el.mam_id}"/>
+                        <input type="hidden" name="gender1" th:id="gender+${el.cat_id}" th:value="${el.gender}"/>
                     </td>
                 </tr>
 
             </div>
             <tr>
-                <form method="post" th:action="@{/chekCat}">
-                    <td colspan="2">
-                        <button name="check" id="check" class=cat onclick="shipment()" value="">
+                <td colspan="2">
+                    <form  th:object="${catsForm}" method="get" th:action="@{/chekCat}">
+                        <input type="hidden" name="id_cat" id="id_cat" th:field="*{cat_id}">
+                        <button class=cat onclick="shipment()">
                             Просмотреть
                         </Button>
-                    </td>
-                </form>
+                    </form>
+                </td>
             </tr>
             <tr>
                 <div th:insert="blocks/blockss :: buttonMainDelete">
@@ -58,45 +60,5 @@
         </table>
     </div>
 </div>
-<script>
-    function s1() {
-        $('input:radio:checked').each(function () {
-            document.getElementById("delete").value = $(this).val();
-            document.getElementById("check").value = $(this).val();
-            alert(document.getElementById("delete").value);
-            alert(document.getElementById("check").value);
-        })
-    }
-
-    function check() {
-
-        if (confirm('Вы уверены?') == false) {
-            return false;
-        }
-    }
-
-    function shipment() {
-        $('input:radio:checked').each(function () {
-            document.getElementById("delete").value = $(this).val();
-            document.getElementById("check").value = $(this).val();
-            var id = (String)($(this).val());
-            var name = (String)("name_cat" + id);
-            var dad = (String)("id_dad" + id);
-            var mam = (String)("id_mam" + id);
-            var gen = (String)("gender" + id);
-
-            document.getElementById("name_cat").value = document.getElementById(name).value;
-            document.getElementById("id_dad").value = document.getElementById(dad).value;
-            document.getElementById("id_mam").value = document.getElementById(mam).value;
-            document.getElementById("gender").value = document.getElementById(gen).value;
-
-            console.log(document.getElementById("delete").value);
-            console.log(document.getElementById("name_cat").value);
-            console.log(document.getElementById("id_dad").value);
-            console.log(document.getElementById("id_mam").value);
-            console.log(document.getElementById("gender").value);
-        })
-    };
-</script>
 </body>
 </html>

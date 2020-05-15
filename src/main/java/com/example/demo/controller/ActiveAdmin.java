@@ -1,18 +1,13 @@
 package com.example.demo.controller;
 
 import com.example.demo.enums.Role;
-import com.example.demo.model.Users;
-import com.example.demo.repos.UserRepository;
+import com.example.demo.model.User;
 import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Arrays;
-import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/ad")
@@ -21,25 +16,27 @@ public class ActiveAdmin {
     private UserService userService;
 
     @PostMapping
-    public String editprof1(@RequestParam("realname") Users users, @RequestParam("username") String name, @RequestParam Map<String, String> form) {
-        users.setUsername(name);
-        Set<String> roles = Arrays.stream(Role.values()).map(Role::name).collect(Collectors.toSet());
-        users.getRoles().clear();
-        for (String key : form.keySet()) {
-
-            if (roles.contains(key)) {
-                users.getRoles().add(Role.valueOf(key));
-            }
-        }
-        userService.saveUser(users);
+    public String editprof1(User users,@RequestBody MultiValueMap<String, String> form) {
+        userService.editUsers(users, form);
         return "redirect:/mainPage";
     }
 
-    @GetMapping("{ad}")
-    public String editProf(@PathVariable Users id, Model model) {
-        model.addAttribute("USER", "USER");
-        model.addAttribute("ADMIN", "");
+    @GetMapping("/{ad}")
+    public String editProf(@PathVariable(name = "ad") User id, Model model) {
+        User userForm = new User();
+        model.addAttribute("userForm", userForm);
+        for (Role ignored : id.getRoles()) {
+
+            if (ignored.toString().equals("USER")) {
+                model.addAttribute("USER", ignored.toString());
+            }
+
+            if (ignored.toString().equals("ADMIN")) {
+                model.addAttribute("ADMIN", ignored.toString());
+            }
+
+        }
         model.addAttribute("user", id);
-        return "editProf";
+        return "active/editProf";
     }
 }

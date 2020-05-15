@@ -1,0 +1,41 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="utf-8">
+    <title>Please sign in</title>
+    <script src="https://snipp.ru/cdn/jquery/2.1.1/jquery.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous"/>
+</head>
+<body>
+<div class="form-signin">
+    <form th:action="@{/ad}" method="post" th:object="${userForm}">
+    <h2 class="form-signin-heading">Edit Profile</h2>
+    <p>
+        <label for="username" class="sr-only">Username</label>
+        <input type="text" id="name6" class="form-control" th:value="${user.username}"
+               placeholder="Username" required autofocus>
+        <input type="hidden" id="idus" th:value="${user.id}">
+    </p>
+        <div>
+            <label><input type="checkbox" value="USER" id="USER" name="USER" th:checked="${USER=='USER'?true:false}" th:class="${USER}">USERS</label>
+        </div>
+        <div>
+            <label><input type="checkbox" id="ADMIN" name="ADMIN" value="ADMIN"
+                          th:checked="${ADMIN=='ADMIN'?true:false}">ADMIN</label>
+        </div>
+        <input id="iduser" type="hidden" th:field="*{id}">
+        <input id="username" type="hidden" th:field="*{username}">
+        <button class="btn btn-lg btn-primary btn-block" onclick="f()" id="roles2" type="submit">Save</button>
+    </form>
+</div>
+<script>
+    function f() {
+        document.getElementById("iduser").value = document.getElementById("idus").value;
+        document.getElementById("username").value = document.getElementById("name6").value;///+++
+    }
+</script>
+</body>
+</html>

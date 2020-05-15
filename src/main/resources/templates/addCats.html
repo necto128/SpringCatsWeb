@@ -6,47 +6,55 @@
     <meta http-equiv="Content-Type; content=text/html charset=utf-8">
     <title>$Первая HTML страница$</title>
     <link rel="stylesheet" href="style/addCats.css"/>
+    <script src="/js/addCatJS.js"></script>
 </head>
 <body style=height:100%;width:100%>
 <header th:insert="blocks/blockss :: header"></header>
 <button class=addcat>Добавление нового кота</button>
 <div class=midl>
     <div class="form">
-        <form id="form1" method="post" th:action="@{/addCats}">
+
+        <div>
+            <label style="margin:0 40px">М<input name="radio1" type="radio" value="М" id="typeм" class="form_input"
+                                                 checked></label>
+
+            <label>Ж<input name="radio1" type="radio" value="Ж" id="typeж" class="form_input"></label>
+        </div>
+
+        <form id="form1" method="post" th:action="@{/addCats}" th:object="${catsForm}">
             <div class="form_grup">
                 <label class="form_label">Имя кота</label>
-                <input id="nameCat" name="nameCat" class="form_input" value=""/>
+                <input id="nameCat" name="nameCat" minlength="3" class="form_input" type="text"
+                       th:field="*{cat_name}"/>
             </div>
             <div class="form_grup">
                 <label class="form_label">ID отца</label>
-                <input id="idDad" name="idDad" type="number" class="form_input" style=" width: 170px;" value=""/>
+                <input id="idDad" name="idDad" type="number" minlength="1" class="form_input" style=" width: 170px;"
+                       th:field="*{dad_id}"/>
                 <select id="iddadcats">
                     <option>пустой</option>
                     <div th:each="el : ${listcat}">
                         <span th:if="${el.gender=='М'}">
-                            <option th:value="${el.id_cat}">[[${el.id_cat}]]</option>
+                            <option th:value="${el.cat_id}">[[${el.cat_id}]]</option>
                         </span>
                     </div>
                 </select>
             </div>
             <div class="form_grup">
                 <label class="form_label">ID матери</label>
-                <input id="idMam" name="idMam" type="number" class="form_input" style=" width: 170px;" value=""/>
+                <input id="idMam" name="idMam" type="number" class="form_input" style=" width: 170px;"
+                       th:field="*{mam_id}"/>
                 <select id="idmamcats">
                     <option>пустой</option>
                     <div th:each="el : ${listcat}">
                          <span th:if="${el.gender=='Ж'}">
-                        <option th:value="${el.id_cat}">[[${el.id_cat}]]</option>
+                        <option th:value="${el.cat_id}">[[${el.cat_id}]]</option>
                          </span>
                     </div>
                 </select>
             </div>
-            <div>
-                <label style="margin:0 40px">М<input name="radio1" type="radio" value="М" class="form_input"
-                                                     checked></label>
-                <label>Ж<input NAME="radio1" type="radio" value="Ж" class="form_input"></label>
-            </div>
-            <button id="gender" name="gender" class="form_button" onclick="x1()" value=""/>
+            <input name="gender" type="hidden" id="gender" th:field="*{gender}"/>
+            <button type="submit" class="form_button" onclick="x1()"/>
             Записать кота</button>
         </form>
         <a th:href="@{/mainPage}">
@@ -56,28 +64,5 @@
         </a>
     </div>
 </div>
-<script>
-    $('select#iddadcats').on('change', function () {
-        $('input[name="idDad"]').val(this.value);
-    });
-    $('select#idmamcats').on('change', function () {
-        $('input[name="idMam"]').val(this.value);
-    });
-
-    function x1() {
-        var nameCat = document.getElementById("nameCat").value;
-        var iddad = document.getElementById("idDad").value;
-        var idmam = document.getElementById("idMam").value;
-        if (nameCat.length > 0 && iddad.length > 0 && idmam.length > 0) {
-
-            $('input:radio:checked').each(function () {
-                document.getElementById("gender").value = $(this).val();
-            });
-            document.getElementById("form1").onsubmit = true
-        } else {
-            document.getElementById("form1").onsubmit = false
-        }
-    }
-</script>
 </body>
 </html>
