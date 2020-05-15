@@ -48,7 +48,7 @@ public class MainController {
         return "chekCat";
     }
 
-    @PostMapping("/chekCat/remove")
+    @GetMapping("/chekCat/remove")
     public String deleteCat(Cat cats, Model model) {
         model.addAttribute("listcats", catService.check(cats.getCat_id()));
         catService.deleteRecord(cats.getCat_id());

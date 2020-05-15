@@ -45,7 +45,7 @@
             <input type="hidden" name="id_mam" th:field="*{mam_id}" id="imam"/>
         </form>
 
-        <form method="post" th:action="@{/chekCat/remove}" onsubmit="if(check()==false)return false"
+        <form method="get" th:action="@{/chekCat/remove}" onsubmit="if(check()==false)return false"
               th:object="${catsForm}">
             <button class="form_button" onclick="x1()" style="margin-top:0px;width:157.59px">Удалить кота</button>
             <input type="hidden" id="delete" name="delete" th:field="*{cat_id}">
