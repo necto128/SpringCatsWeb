@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.model.Cat;
 import com.example.demo.model.User;
 import com.example.demo.service.CatService;
+import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -14,9 +15,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class MainController {
     @Autowired
     private CatService catService;
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/mainPage")
     public String mainPage(Model model) {
+        System.out.println("fdasdaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"+userService.getUser());
         Cat cat = new Cat();
         model.addAttribute("catsForm", cat);
         model.addAttribute("listcat", catService.listCats());
