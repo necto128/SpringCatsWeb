@@ -31,14 +31,14 @@
             <div th:each="el : ${listcat}">
                 <tr class="form_radio_btn">
                     <td colspan="2" style="width:300px">
-                        <input th:id="${el.cat_id}" type="radio" name="radio" th:value="${el.cat_id}" checked>
-                        <label th:for="${el.cat_id}"> <span
-                                style=margin-right:70px;margin-left:20px;>[[${el.cat_id}]]</span><span>[[${el.cat_name}]]</span></label>
+                        <input th:id="${el.id}" type="radio" name="radio" th:value="${el.id}" checked>
+                        <label th:for="${el.id}"> <span
+                                style=margin-right:70px;margin-left:20px;>[[${el.id}]]</span><span>[[${el.name}]]</span></label>
 
-                        <input type="hidden" name="name_cat1" th:id="name_cat+${el.cat_id}" th:value="${el.cat_name}"/>
-                        <input type="hidden" name="id_dad1" th:id="id_dad+${el.cat_id}" th:value="${el.dad_id}"/>
-                        <input type="hidden" name="id_mam1" th:id="id_mam+${el.cat_id}" th:value="${el.mam_id}"/>
-                        <input type="hidden" name="gender1" th:id="gender+${el.cat_id}" th:value="${el.gender}"/>
+                        <input type="hidden" name="name_cat1" th:id="name_cat+${el.id}" th:value="${el.name}"/>
+                        <input type="hidden" name="id_dad1" th:id="id_dad+${el.id}" th:value="${el.dad}"/>
+                        <input type="hidden" name="id_mam1" th:id="id_mam+${el.id}" th:value="${el.mam}"/>
+                        <input type="hidden" name="gender1" th:id="gender+${el.id}" th:value="${el.gender}"/>
                     </td>
                 </tr>
 
@@ -46,7 +46,7 @@
             <tr>
                 <td colspan="2">
                     <form  th:object="${catsForm}" method="get" th:action="@{/chekCat}">
-                        <input type="hidden" name="id_cat" id="id_cat" th:field="*{cat_id}">
+                        <input type="hidden" name="id_cat" id="id_cat" th:field="*{id}">
                         <button class=cat onclick="shipment()">
                             Просмотреть
                         </Button>

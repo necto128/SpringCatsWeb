@@ -8,8 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 public class MainController {
@@ -20,7 +22,7 @@ public class MainController {
 
     @GetMapping("/mainPage")
     public String mainPage(Model model) {
-        System.out.println("fdasdaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"+userService.getUser());
+
         Cat cat = new Cat();
         model.addAttribute("catsForm", cat);
         model.addAttribute("listcat", catService.listCats());
@@ -36,9 +38,10 @@ public class MainController {
     }
 
     @PostMapping("/addCats")
-    public String endAddCats(Cat cats,  @AuthenticationPrincipal User user) {
-        if (cats.getCat_name().length() != 0 && cats.getDad_id() != null && cats.getMam_id() != null) {
+    public String endAddCats(Cat cats, @AuthenticationPrincipal User user, @RequestBody MultiValueMap<Cat, Cat> param) {
+        if (cats.getName().length() != 0) {
             catService.save(cats, user);
+
             return "redirect:/mainPage";
         }
         return "redirect:/addCats";
@@ -48,14 +51,14 @@ public class MainController {
     public String chekCat(Cat cats, Model model) {
         Cat cat = new Cat();
         model.addAttribute("catsForm", cat);
-        model.addAttribute("listcat", catService.check(cats.getCat_id()));
+        model.addAttribute("listcat", catService.check(cats.getId()));
         return "chekCat";
     }
 
     @GetMapping("/chekCat/remove")
     public String deleteCat(Cat cats, Model model) {
-        model.addAttribute("listcats", catService.check(cats.getCat_id()));
-        catService.deleteRecord(cats.getCat_id());
+        model.addAttribute("listcats", catService.check(cats.getId()));
+        catService.deleteRecord(cats.getId());
         return "deleteCat";
     }
 

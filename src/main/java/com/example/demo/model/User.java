@@ -13,16 +13,16 @@ import java.util.Set;
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public Long id;
+    private Long id;
 
     @Column(name = "username")
-    public String username;
+    private String username;
 
     @Column(name = "password")
-    public String password;
+    private String password;
 
     @Column(name = "active")
-    public boolean active;
+    private boolean active;
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "id_user"))

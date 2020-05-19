@@ -21,10 +21,10 @@
             </tr>
 
             <tr th:each="el:${listcats}">
-                <td><span class="px30">[[${el.cat_id}]]</span></td>
-                <td><span class="px30">[[${el.cat_name}]]</span></td>
-                <td><span class="px30">[[${el.dad_id}]]</span></td>
-                <td><span class="px30">[[${el.mam_id}]]</span></td>
+                <td><span class="px30">[[${el.id}]]</span></td>
+                <td><span class="px30">[[${el.name}]]</span></td>
+                <td><span class="px30">[[${el.dad.getId()}]]</span></td>
+                <td><span class="px30">[[${el.mam.getId()}]]</span></td>
                 <td><span class="px30">[[${el.gender}]]</span></td>
             </tr>
             </br>

@@ -1,13 +1,15 @@
 package com.example.demo.service;
 
+import com.example.demo.enums.Gender;
 import com.example.demo.model.Cat;
 import com.example.demo.model.User;
 import com.example.demo.repos.CatRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.MultiValueMap;
 
-import java.util.ArrayList;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class CatService {
@@ -20,8 +22,15 @@ public class CatService {
     }
 
     public void save(Cat cats, User user) {
-        Cat cat = new Cat(cats.getCat_name(), cats.getDad_id(), cats.getMam_id(), cats.getGender(), user);
-        catRepository.save(cat);
+
+            Cat cat = new Cat();
+            cat.setName(cats.getName());
+            cat.setDad(catRepository.findById(cats.getDad().getId()).orElseThrow());
+            cat.setMam(catRepository.findById(cats.getMam().getId()).orElseThrow());
+            cat.setGender(cats.getGender());
+            cat.setAuthor(user);
+            catRepository.save(cat);
+
     }
 
     public ArrayList<Cat> check(Long id) {
@@ -37,10 +46,10 @@ public class CatService {
     }
 
     public void editRecord(Cat cats) {
-        Cat cat = catRepository.findById(cats.getCat_id()).orElseThrow();
-        cat.setCat_name(cats.getCat_name());
-        cat.setDad_id(cats.getDad_id());
-        cat.setMam_id(cats.getMam_id());
+        Cat cat = catRepository.findById(cats.getId()).orElseThrow();
+        cat.setName(cats.getName());
+        cat.setDad(cats.getDad());
+        cat.setMam(cats.getMam());
         catRepository.save(cat);
     }
 

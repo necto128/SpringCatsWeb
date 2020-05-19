@@ -13,7 +13,7 @@
     <td colspan="2">
         <form name="form1" onsubmit="if(check()==false)return false" method="get" th:object="${catsForm}"
               th:action="@{/chekCat/remove}">
-            <input type="hidden" id="delete" name="delete" th:field="*{cat_id}">
+            <input type="hidden" id="delete" name="delete" th:field="*{id}">
             <button onclick="shipment()" class="cat">
                 Удалить
             </Button>
